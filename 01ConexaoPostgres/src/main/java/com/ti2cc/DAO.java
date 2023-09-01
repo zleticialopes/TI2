@@ -22,7 +22,7 @@ public class DAO {
         try {
             Class.forName(driverName);
             conexao = DriverManager.getConnection(url, username, password);
-            status = (conexao != null); 
+            status = (conexao != null); // Corrigido para verificar se a conexão não é nula
             System.out.println("Conexão efetuada com o postgres!");
         } catch (ClassNotFoundException e) {
             System.err.println("Conexão NÃO efetuada com o postgres -- Driver não encontrado -- " + e.getMessage());
@@ -134,4 +134,20 @@ public class DAO {
         }
         return animais;
     }
-}
+    
+    public Animais getAnimalPorCodigo(int codigo) {
+        Animais animal = null;
+
+        try {
+            Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("SELECT * FROM \"Animais\".animal WHERE codigo = " + codigo); 
+            if (rs.next()) {
+                animal = new Animais(rs.getInt("codigo"), rs.getString("nome"),
+                        rs.getString("raça"), rs.getString("sexo").charAt(0), rs.getInt("idade"));
+            }
+            st.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return animal;
+    }
