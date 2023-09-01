@@ -22,12 +22,12 @@ public class DAO {
         try {
             Class.forName(driverName);
             conexao = DriverManager.getConnection(url, username, password);
-            status = (conexao != null); // Corrigido para verificar se a conex„o n„o È nula
-            System.out.println("Conex„o efetuada com o postgres!");
+            status = (conexao != null); 
+            System.out.println("Conex√£o efetuada com o postgres!");
         } catch (ClassNotFoundException e) {
-            System.err.println("Conex„o N√O efetuada com o postgres -- Driver n„o encontrado -- " + e.getMessage());
+            System.err.println("Conex√£o N√ÉO efetuada com o postgres -- Driver n√£o encontrado -- " + e.getMessage());
         } catch (SQLException e) {
-            System.err.println("Conex„o N√O efetuada com o postgres -- " + e.getMessage());
+            System.err.println("Conex√£o N√ÉO efetuada com o postgres -- " + e.getMessage());
         }
 
         return status;
@@ -49,7 +49,7 @@ public class DAO {
         boolean status = false;
         try {
             Statement st = conexao.createStatement();
-            st.executeUpdate("INSERT INTO canil (codigo, nome, raÁa, sexo, idade) "
+            st.executeUpdate("INSERT INTO canil (codigo, nome, ra√ßa, sexo, idade) "
                     + "VALUES (" + animal.getCodigo() + ", '" + animal.getNome() + "', '"
                     + animal.getRaca() + "', '" + animal.getSexo() + "', " + animal.getIdade() + ");");
             st.close();
@@ -64,7 +64,7 @@ public class DAO {
         boolean status = false;
         try {
             Statement st = conexao.createStatement();
-            String sql = "UPDATE canil SET nome = '" + animal.getNome() + "', raÁa = '"
+            String sql = "UPDATE canil SET nome = '" + animal.getNome() + "', ra√ßa = '"
                     + animal.getRaca() + "', sexo = '" + animal.getSexo() + "'"
                     + " WHERE codigo = " + animal.getCodigo();
             st.executeUpdate(sql);
@@ -80,7 +80,7 @@ public class DAO {
         boolean status = false;
         try {
             Statement st = conexao.createStatement();
-            st.executeUpdate("DELETE FROM canil WHERE codigo = " + codigo); // Corrigido para "canil" em vez de "usuario"
+            st.executeUpdate("DELETE FROM canil WHERE codigo = " + codigo); 
             st.close();
             status = true;
         } catch (SQLException u) {
@@ -94,7 +94,7 @@ public class DAO {
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("SELECT * FROM canil"); // Corrigido para "canil" em vez de "usuario"
+            ResultSet rs = st.executeQuery("SELECT * FROM canil"); 
             if (rs.next()) {
                 rs.last();
                 animais = new Animais[rs.getRow()];
@@ -102,7 +102,7 @@ public class DAO {
 
                 for (int i = 0; rs.next(); i++) {
                     animais[i] = new Animais(rs.getInt("codigo"), rs.getString("nome"),
-                            rs.getString("raÁa"), rs.getString("sexo").charAt(0), rs.getInt("idade"));
+                            rs.getString("ra√ßa"), rs.getString("sexo").charAt(0), rs.getInt("idade"));
                 }
             }
             st.close();
@@ -117,7 +117,7 @@ public class DAO {
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = st.executeQuery("SELECT * FROM canil WHERE sexo = 'M'"); // Corrigido para "canil" em vez de "usuario"
+            ResultSet rs = st.executeQuery("SELECT * FROM canil WHERE sexo = 'M'"); 
             if (rs.next()) {
                 rs.last();
                 animais = new Animais[rs.getRow()];
@@ -125,7 +125,7 @@ public class DAO {
 
                 for (int i = 0; rs.next(); i++) {
                     animais[i] = new Animais(rs.getInt("codigo"), rs.getString("nome"),
-                            rs.getString("raÁa"), rs.getString("sexo").charAt(0), rs.getInt("idade"));
+                            rs.getString("ra√ßa"), rs.getString("sexo").charAt(0), rs.getInt("idade"));
                 }
             }
             st.close();
