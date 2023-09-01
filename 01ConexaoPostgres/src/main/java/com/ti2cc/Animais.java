@@ -63,6 +63,14 @@ public class Animais {
     public void setIdade(int idade) {
         this.idade = idade;
     }
+    
+    public int getAnimalPorCodigo() {
+        return codigo;
+    }
+
+    public void setAnimalPorCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
     @Override
     public String toString() {
